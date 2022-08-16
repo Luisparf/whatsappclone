@@ -8,9 +8,9 @@ import { Close } from "@mui/icons-material";
 import { Send } from "@material-ui/icons";
 import { Mic } from "@mui/icons-material";
 import EmojiPicker from "emoji-picker-react";
-import { height } from "@mui/system";
+import MessageItem from "./MessageItem";
 
-export default() => {
+export default({user}) => {
 
     let recognition = null;
     let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -21,6 +21,13 @@ export default() => {
     const [emojiOpen, setEmojiOpen] = useState(false);
     const [text, setText] = useState('');
     const [listening, setListening] = useState(false);
+    const [list, setList] = useState([
+        {author:123, body:'bla bla bla'},
+        {author:123,body:'bla bla '},
+        {author:1234,body:'bla bla bla bla'},
+
+        
+    ]);
 
     const handleEmojiClick = (e, emojiObject) => {
         setText(text + emojiObject.emoji);
@@ -80,6 +87,13 @@ export default() => {
             </div>
 
             <div className="chatWindow--body">
+                {list.map((item, key)=>(
+                    <MessageItem 
+                        key={key}
+                        data={item}
+                        user={user}
+                    />
+                ))}
 
             </div>
 
