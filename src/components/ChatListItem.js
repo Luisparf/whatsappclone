@@ -7,7 +7,7 @@ export default ({onClick, active, data}) =>{
         className={`chatListItem ${active?'active':''}`}
         onClick={onClick}
         >
-            <img className="chatListItem--avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+            <img className="chatListItem--avatar" src={data.image} alt="" />
             <div className="chatListItem--lines" >
                 <div className="chatListItem--line" >
                     <div className="chatListItem--name" >{data.title}</div>
@@ -23,4 +23,4 @@ export default ({onClick, active, data}) =>{
 
         </div>
     )
-}
+}   
