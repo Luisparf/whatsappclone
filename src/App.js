@@ -1,13 +1,15 @@
 import React, { useState, useEffect} from 'react';
 import './App.css';
 import { DonutLarge } from '@material-ui/icons';
-import { Chat } from '@mui/icons-material';
+import { ApiOutlined, Chat } from '@mui/icons-material';
 import { MoreVert } from '@material-ui/icons';
 import { Search } from '@mui/icons-material';
 import ChatListItem from './components/ChatListItem';
 import ChatIntro from './components/ChatIntro';
 import ChatWindow from './components/ChatWindow';
 import NewChat from './components/NewChat';
+import Login from './components/Login';
+import Api from './Api';
 
 export default () =>{
 
@@ -18,24 +20,37 @@ export default () =>{
     {chatId:4, title: 'Fulano 4', image: 'https://www.w3schools.com/w3images/avatar6.png'},
   ]);
   const [activeChat, setActiveChat] = useState({});
-  const [user, setUser] = useState({
-    id: 1234,
-    avatar: 'https://www.w3schools.com/howto/img_avatar.png',
-    name: 'Luis P. A. Afonso'
-  });
+  const [user, setUser] = useState(null);
 
   const [showNewChat, setShowNewChat] = useState(false);
 
   const handleNewChat = () => {
     setShowNewChat(true);
   }
+
+  const handleLoginData = async (u) => {
+    let newUser = {
+      id: u.uid,
+      name: u.displayName,
+      avatar: u.photoURL
+    };
+    await Api.addUser(newUser);
+
+    setUser(newUser)
+  }
+
+  if(user === null){
+     return (<Login onReceive={handleLoginData}/>)
+  }
+
   
+
   return(
     <div className='app-window'>
         <div className='sidebar'>
             <NewChat 
-              chatList={chatList}
-              use={user}
+              chatlist={chatList}
+              user={user}
               show = {showNewChat}
               setShow = {setShowNewChat}
             />
