@@ -13,16 +13,18 @@ import Api from './Api';
 
 export default () =>{
 
-  const [chatList, setChatlist] = useState([
-    {chatId:1, title: 'Fulano 1', image: 'https://www.w3schools.com/howto/img_avatar.png'},
-    {chatId:2, title: 'Fulano 2', image: 'https://www.w3schools.com/howto/img_avatar2.png'},
-    {chatId:3, title: 'Fulano 3', image: 'https://www.w3schools.com/w3images/avatar2.png'},
-    {chatId:4, title: 'Fulano 4', image: 'https://www.w3schools.com/w3images/avatar6.png'},
-  ]);
+
+  const [chatList, setChatlist] = useState([]);
   const [activeChat, setActiveChat] = useState({});
   const [user, setUser] = useState(null);
-
   const [showNewChat, setShowNewChat] = useState(false);
+
+  useEffect(()=>{
+    if(user !== null){
+      let unsub = Api.onChatList(user.id, setChatlist);
+      return unsub;
+    }
+  },[user]);
 
   const handleNewChat = () => {
     setShowNewChat(true);
@@ -36,7 +38,7 @@ export default () =>{
     };
     await Api.addUser(newUser);
 
-    setUser(newUser)
+    setUser(newUser);
   }
 
   if(user === null){
@@ -93,6 +95,7 @@ export default () =>{
           {activeChat.chatId !== undefined &&
             <ChatWindow 
               user={user}
+              data={activeChat}
             />
           }
            {activeChat.chatId === undefined &&
