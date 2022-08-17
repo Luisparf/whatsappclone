@@ -60,6 +60,15 @@
     padding: 20px 30px;
 }
 
+.chatWindow--body::-webkit-scrollbar{
+    width: 6px;
+    height: 6px;
+  }
+  
+  .chatWindow--body::-webkit-scrollbar-thumb{
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
 .chatWindow--footer{
     height: 62px;
     display: flex;

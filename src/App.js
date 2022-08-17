@@ -7,6 +7,7 @@ import { Search } from '@mui/icons-material';
 import ChatListItem from './components/ChatListItem';
 import ChatIntro from './components/ChatIntro';
 import ChatWindow from './components/ChatWindow';
+import NewChat from './components/NewChat';
 
 export default () =>{
 
@@ -22,17 +23,29 @@ export default () =>{
     avatar: 'https://www.w3schools.com/howto/img_avatar.png',
     name: 'Luis P. A. Afonso'
   });
+
+  const [showNewChat, setShowNewChat] = useState(false);
+
+  const handleNewChat = () => {
+    setShowNewChat(true);
+  }
+  
   return(
     <div className='app-window'>
         <div className='sidebar'>
-
+            <NewChat 
+              chatList={chatList}
+              use={user}
+              show = {showNewChat}
+              setShow = {setShowNewChat}
+            />
               <header>
                 <img className='header--avatar' src={user.avatar} alt=''></img>
                 <div className='headder--buttons'>
                   <div className='header--btn'>
                       <DonutLarge style={{color: '#919191'}} />
                   </div>
-                  <div className='header--btn'>
+                  <div onClick = {handleNewChat} className='header--btn'>
                       < Chat style={{color: '#919191'}} />
                   </div>
                   <div className='header--btn'>
